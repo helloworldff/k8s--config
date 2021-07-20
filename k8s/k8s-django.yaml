@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      name: django
+      namespace: default
+      labels:
+        app: django
+    spec:
+      containers: 
+       - command: ["python manage.py makemigrations"]
+         command: ["python manage.py migrate"]
+         command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+         image: k8s-django
+         imagePullPolicy: IfNotPresent
+         livenessProbe:
+           tcpSocket:
+             port: 8000
+         name: k8s-django
+         ports: 
+           - name: k8s-django
+             containerPort: 8000
+             protocol: TCP
+         readinessProbe:
+           exec:
+             command:
+               - "sh"
+               - "-c"
+               - "curl sft-mysql:3306"
+             
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-django
+  namespace: default
+spec:
+  type: NodePort
+  selector:
+    app: django
+  ports:
+    - name: k8s-django
+      nodePort: 5504
+      port: 8000
+      targetPort: 8000
+      protocol: TCP  
