@@ -1,7 +1,7 @@
 FROM python:3.7
 RUN apt-get update
 RUN apt-get install python3-dev default-libmysqlclient-dev -y
-ADD /home/jenkins/agent/workspace/django-linuxppq5x/test /code
+ADD *  /code
 WORKDIR /code
 RUN python -m pip install --upgrade pip
 RUN pip install -Ur requirements.txt
