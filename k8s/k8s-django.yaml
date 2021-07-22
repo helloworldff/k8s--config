@@ -19,7 +19,7 @@ spec:
        - command: ["python manage.py makemigrations"]
          command: ["python manage.py migrate"]
          command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-         image: k8s-django
+         image: $REGISTRY/django:1.0
          imagePullPolicy: IfNotPresent
          livenessProbe:
            tcpSocket:
