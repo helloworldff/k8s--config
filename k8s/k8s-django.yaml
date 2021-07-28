@@ -15,26 +15,39 @@ spec:
       labels:
         app: django
     spec:
-      containers: 
-       - command: ["python manage.py makemigrations"]
-         command: ["python manage.py migrate"]
-         command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-         image: 17607175020/django:1.0
-         imagePullPolicy: IfNotPresent
-         livenessProbe:
-           tcpSocket:
-             port: 8000
-         name: k8s-django
-         ports: 
-           - name: k8s-django
-             containerPort: 8000
-             protocol: TCP
-         readinessProbe:
-           exec:
-             command:
-               - "sh"
-               - "-c"
-               - "curl sft-mysql:3306"
+      nodeName: master
+      initContainers:
+      - name: init
+        image: busybox
+        command:
+        - sh
+        - -c
+        - "telnet sft-mysql 3306"
+      containers:
+      - command: 
+        - sh
+        - -c
+        - "python manage.py makemigrations; python manage.py migrate; python manage.py runserver 0.0.0.0:8000"
+        image: 17607175020/django:1.0
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          tcpSocket:
+            port: 8000
+        name: k8s-django
+        ports: 
+          - name: k8s-django
+            containerPort: 8000
+            protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+              - sh
+              - -c
+              - "ls"
+      tolerations:
+        - key: ""
+          operator: "Exists"
+          effect: ""
              
 ---
 apiVersion: v1
