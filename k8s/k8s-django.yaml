@@ -57,6 +57,7 @@ metadata:
   namespace: default
 spec:
   type: NodePort
+  nodePort: 30800
   selector:
     app: django
   ports:

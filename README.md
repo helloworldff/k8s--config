@@ -7,9 +7,7 @@
 ##### 3. 告警页面,需要修改setting文件的邮箱配置，然后在告警设置页面
 ##### 写上接收邮件地址，告警设置.
 ### 运行：
-##### 1. 拉取github代码 ：   git clone https://github.com/helloworldff/k8s--config
-##### 2. 进入k8s目录，build镜像;    cd k8s && docker build --tag k8s-django -f k8s-dockerfile .
-##### 3. 
-##### 4  
-##### 5. 
-##### 6. 
+##### 1. 拉取github代码:   git clone https://github.com/helloworldff/k8s--config
+##### 2. 进入k8s目录，build镜像:    cd k8s && docker build --tag k8s-django -f k8s-dockerfile .
+##### 3. 然后服务:  kubectl apply -f k8s-django.yaml
+##### 4. 页面访问:  服务器IP+30800  即可
