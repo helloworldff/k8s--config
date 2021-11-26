@@ -7,9 +7,9 @@
 ##### 3. 告警页面,需要修改setting文件的邮箱配置，然后在告警设置页面
 ##### 写上接收邮件地址，告警设置.
 ### 运行：
-##### 1. 拉取github代码 ：   git clone https://github.com/helloworldff/centos--info--collect.git
-##### 2. 使用pip安装包： pip install -Ur requirements.txt
-##### 3. 创建数据库表：python manage.py makemigrations , python manage.py migrate 
-##### 4  然后 cd PyLinux && python manage.py runserver 0.0.0.0:8000 启动服务器
-##### 5. 页面进入 ip+8000 访问。 
-##### 6. 邮件告警需要执行：python manage.py crontab add
+##### 1. 拉取github代码 ：   git clone https://github.com/helloworldff/k8s--config
+##### 2. 进入k8s目录，build镜像;    cd k8s && docker build --tag k8s-django -f k8s-dockerfile .
+##### 3. 
+##### 4  
+##### 5. 
+##### 6. 
